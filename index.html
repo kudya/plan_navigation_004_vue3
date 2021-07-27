@@ -8,23 +8,32 @@
   </head>
   <body>
 
-  <div class="container" id="app">
+  <div class="container" id="app" v-cloak>
     <div class="card">
       <h1>План по изучению Vue.js</h1>
 
       <div class="steps">
         <div class="steps-content">
-          Сюда необходимо вывести текст активного шага по его индексу
+          {{ steps[activeIndex].text }}
         </div>
         <ul class="steps-list">
-          <li class="steps-item done"><span>1</span> Шаг 1</li>
-          <li class="steps-item done"><span>2</span> Шаг 2</li>
-          <li class="steps-item active"><span>3</span> Шаг 3</li>
-          <li class="steps-item"><span>4</span> Шаг 4</li>
+          <li 
+            class="steps-item" 
+            :class="{ active: index === activeIndex, done: index < activeIndex}" 
+            :index="index" 
+            v-for="(step, index) in steps" 
+            @click="setActive(index)">
+            <span>{{ index + 1 }}</span> 
+            {{ step.title }}
+          </li>
         </ul>
         <div>
-          <button class="btn">Назад</button>
-          <button class="btn primary">Вперед</button>
+          <button v-show="!isFinish" class="btn" @click="prev" :disabled="isDisable">Назад</button>
+
+          <button v-show="!isFinish" v-if="!isLastStep" class="btn primary" @click="nextOfFinish">Вперед</button>
+          <button v-show="!isFinish" v-else class="btn primary" @click="nextOfFinish">Закончить</button>
+
+          <button v-show="isFinish" class="btn" @click="reset">Начать заново</button>
         </div>
       </div>
     </div>
