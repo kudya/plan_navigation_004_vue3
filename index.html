@@ -30,8 +30,8 @@
         <div>
           <button v-show="!isFinish" class="btn" @click="prev" :disabled="isDisable">Назад</button>
 
-          <button v-show="!isFinish" v-if="!isLastStep" class="btn primary" @click="nextOfFinish">Вперед</button>
-          <button v-show="!isFinish" v-else class="btn primary" @click="nextOfFinish">Закончить</button>
+          <button v-show="!isFinish && !isLastStep" class="btn primary" @click="nextOfFinish">Вперед</button>
+          <button v-show="!isFinish && isLastStep" class="btn primary" @click="nextOfFinish">Закончить</button>
 
           <button v-show="isFinish" class="btn" @click="reset">Начать заново</button>
         </div>

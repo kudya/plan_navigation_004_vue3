@@ -15,7 +15,7 @@ const App = {
   methods: {
     // functionality of "Back" button
     prev() {
-      if (this.activeIndex !== 0) {
+      if (this.activeIndex) {
         this.activeIndex--;
       };
     },
